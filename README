@@ -1,0 +1,10 @@
+Camouflage is a plugin for Bukkit (Minecraft server).
+
+IMPORTANT:
+Spout plugin (for the server) is required and SpoutCraft launcher is needed
+to take advantage of Camouflage (otherwise, you will see nothing).
+
+All you need to run it is to copy the jar file into the "plugins" directory.
+Then, start your server. The default config.yml file will be created into plugins/Camouflage.
+All options are explained, so read and modify your configuration, then run the command
+/camouflage-reload (or /ccr its alias) or restart the server.

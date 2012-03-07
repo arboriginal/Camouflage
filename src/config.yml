@@ -1,0 +1,307 @@
+#
+# EN: DEFAULT SETTINGS.
+#
+# Read explanations carefully to understand how each parameters can be changed.
+# All lines which start by a sharp (#) is a comment, you can remove it safely.
+# Respect strictly the YAML syntax (including spaces, dashes, ...).
+#
+# If you encounter a problem, before submit a bug, move your config.yml in another directory
+# and restart your server: A new config.yml will be created.
+# Add your own settings one by one to verify this is not one of them which produces the bug.
+#
+# Have fun!
+#
+#                                    -------------------
+#
+# FR: REGLAGES PAR DEFAUT.
+#
+# Lisez attentivement les explications pour comprendre comment chaque paramètres peuvent être
+# changés. Chaque ligne commençant par un dièse (#) est un commentaire, vous pouvez le supprimer
+# sans problèmes. Respectez scrupuleusement la syntaxe YAML (incluant les espaces, tirets, ...).
+#
+# Si vous rencontrez un problème, avant de soumettre un bug, déplacez votre config.yml dans un
+# autre répertoire et redémarrez votre serveur: Un nouveau config.yml sera créé. Ajouter vos
+# propres réglages un par un pour vérifier que ce n'est pas l'un d'entre eux qui provoque le bug.
+#
+# Amusez vous !
+#
+
+#                             #################################
+
+# EN: Camouflage mechanism settings
+#
+# "updatePeriod" is the number of server "ticks" between 2 creature's skin checks (20 ticks = 1sec).
+# If you put 0, the creature will keep the skin that it got from the blocks group where it appeared.
+#
+# "blockRadius" is the radius around the creature used to compare blocks.
+# Put 0 to only use the one located below it.
+# A radius of 2 will test 25 blocks, a radius of 3 will test 49.
+#
+# If you set "predatorView" to 0, the visual effect during a player is camouflaged is disabled.
+# You can change this amplifier as you want, the default value is 4.
+#                                    -------------------
+# FR: Réglages du méchanisme de camouflage
+#
+# "updatePeriod" est le nombre de "ticks" serveur entre 2 vérification de la skin d'une créature
+# (20 ticks = 1 sec). Si vous mettez 0, la créature conservera la skin qu'elle aura eu du groupe
+# de blocs sur lequel elle est apparue.
+#
+# "blockRadius" est le rayon autour de la créature utilisé pour comparer les blocs.
+# Mettez 0 pour utiliser uniquement celui situé sous celle-ci.
+# Un radius de 2 testera 25 blocs, un radius de 3 en testera 49.
+#
+# Si vous mettez "predatorView" à 0, l'effet visuel pendant le camouflage du joueur est désactivé.
+# Vous pouvez changer ce multiplicateur à votre guise, la valeur par défaut est 4.
+
+updatePeriod: 20
+blockRadius: 2
+predatorView: 4
+
+#                             #################################
+
+# EN: List of your custom skins which will be used.
+#
+# A skin by line, the syntax is "<code name>: <internet address>".
+# Those "code names" will serve you in the creatures' setting not to repeat the URL.
+#                                    -------------------
+# FR: Liste des skins personnalisées qui seront utilisées.
+#
+# Une skin par ligne, la syntaxe est "<nom de code>: <adresse internet>".
+# Ces "noms de code" vous serviront dans le réglage des créatures pour ne pas répéter l'URL.
+
+skins:
+  black:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/black.png
+  white:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/white.png
+  blue:   https://github.com/arboriginal/Camouflage/raw/master/default_skins/blue.png
+  green:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/green.png
+  brown:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/brown.png
+  grey:   https://github.com/arboriginal/Camouflage/raw/master/default_skins/grey.png
+  yellow: https://github.com/arboriginal/Camouflage/raw/master/default_skins/yellow.png
+  pblack:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pblack.png
+  pwhite:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pwhite.png
+  pblue:   https://github.com/arboriginal/Camouflage/raw/master/default_skins/pblue.png
+  pgreen:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pgreen.png
+  pbrown:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pbrown.png
+  pgrey:   https://github.com/arboriginal/Camouflage/raw/master/default_skins/pgrey.png
+  pyellow: https://github.com/arboriginal/Camouflage/raw/master/default_skins/pyellow.png
+
+#                             #################################
+
+# EN: List of blocks groups.
+#
+# Here, you will separate blocks into several groups. The syntax is simple:
+# (beware, do not forget the 2 spaces at the lines' beginning)
+#
+#  <group name>:
+#  - <a block name>
+#  - <another block name>
+#
+# You will find the blocks' name in this list: http://bit.ly/AmJgMb
+# It is not necessary to list all blocks.
+#
+# For blocks which have sub-materials (check this page: http://bit.ly/hlEHZX),
+# you can use the bloc name followed by ":<sub-material number>" to differentiate them.
+#
+# Examples: "WOOL:3" for blue wool, "WOOD:2" for birch logs.
+#           "LEAVES" for all kind of leaves.
+#                                    -------------------
+# FR: Liste des groupes de blocs.
+#
+# Vous allez séparer ici les blocs en différents groupes. La syntaxe est simple :
+# (attention, n'oubliez pas les 2 espaces en début de lignes)
+#
+#  <nom du groupe>:
+#  - <nom d'un bloc>
+#  - <nom d'un autre bloc>
+#
+# Vous trouverez les noms de blocs dans cette liste : http://bit.ly/AmJgMb
+# Il n'est pas nécessaire de lister tous les blocs.
+#
+# Pour les blocs possédant des sous-matériaux (consultez cette page : http://bit.ly/AjlMdt),
+# vous pouvez utiliser le nom du bloc suivi de ":<numéro du sous-matériau>" pour les différencier.
+#
+# Exemples : "WOOL:3" pour la laine bleu, "WOOD:2" pour les buches de boulot.
+#            "LEAVES" pour tous les types de feuilles.
+
+blocksGroups:
+  water:
+  - WATER
+  - WATER_LILY
+  - STATIONARY_WATER
+  - WOOL:11
+
+  sands:
+  - SAND
+  - SANDSTONE
+
+  grass:
+  - GRASS
+  - LONG_GRASS
+  - WOOL:13
+  - LEAVES
+  - STONE_PLATE
+  - STONE_SPADE
+
+  white:
+  - SNOW
+  - SNOW_BLOCK
+  - WOOL:0
+  - WOOD:2
+
+  stone:
+  - STONE
+  - COBBLESTONE
+  - WOOL:8
+  - COBBLESTONE_STAIRS
+
+  brown:
+  - DIRT
+  - WOOL:12
+  - WOOD:0
+  - WOOD:3
+
+  black:
+  - OBSIDIAN
+  - WOOL:15
+  - WOOD:1
+
+#                             #################################
+
+# EN: Creatures' settings
+#
+# You will associate skins (that you have indicated above) to creatures.
+# Just do a section by chameleon creature and indicate for each blocks group the "code name"
+# of the associated skin (Creatures' names on this page: http://bit.ly/wtGoJx).
+#
+# For players, use "PLAYER".
+#
+# The syntax is: (do not forget the 2, then 4 spaces at the line's beginning)
+#
+#  <creature name>:
+#    <a blocks group name>: <skin code name>
+#    <another blocks group name>: <skin code name>
+#                                    -------------------
+# FR: Réglages des créatures
+#
+# Vous allez associer les skins (que vous avez indiquez plus haut) aux créatures.
+# Il suffit de faire une section par créature caméléon et y indiquer pour chaque groupe de blocs
+# le "nom de code" de la skin associée (Noms des créatures sur cette page : http://bit.ly/wtGoJx).
+#
+# Pour les joueurs, utilisez "PLAYER".
+#
+# La syntaxe est : (n'oubliez pas les 2, puis 4 espaces en début de ligne)
+#
+#  <nom de la créature>:
+#    <nom d'un groupe de blocs>: <nom de code d'une skin>
+#    <nom d'un autre groupe de blocs>: <nom de code d'une skin>
+
+creatures:
+  PLAYER:
+    water: pblue
+    sands: pyellow
+    grass: pgreen
+    white: pwhite
+    stone: pgrey
+    brown: pbrown
+    black: pblack
+
+  CREEPER:
+    water: blue
+    sands: yellow
+    grass: green
+    white: white
+    stone: grey
+    brown: brown
+    black: black
+
+  SKELETON:
+    water: blue
+    sands: yellow
+    grass: green
+    white: white
+    stone: grey
+    brown: brown
+    black: black
+
+  ZOMBIE:
+    water: pblue
+    sands: pyellow
+    grass: pgreen
+    white: pwhite
+    stone: pgrey
+    brown: pbrown
+    black: pblack
+
+#                             #################################
+
+# EN: SpoutCraft launcher related settings
+#
+# By putting "allowNonSpoutCraftUser" on "false", players who not use SpoutCraft will be kicked
+# from the server with the message of the "nonSpoutCraftKickMessage" option.
+#
+# By putting "alertNonSpoutCraftUser" on "false", they will not receive the message of the
+# "nonSpoutCraftWarnMessage" option (possibles values: "true" / "false").
+#                                    -------------------
+# FR: Réglages relatifs au lanceur SpoutCraft
+#
+# En mettant "allowNonSpoutCraftUser" sur "false", les joueurs n'utilisant pas SpoutCraft
+# seront jetés du serveur avec le message de l'option "nonSpoutCraftKickMessage".
+#
+# En mettant "alertNonSpoutCraftUser" sur "false", ils ne recevront pas le message de l'option
+# "nonSpoutCraftWarnMessage" (valeurs possibles : "true" / "false").
+
+allowNonSpoutCraftUser: true
+alertNonSpoutCraftUser: true
+nonSpoutCraftKickMessage: Sorry, CraftBukkit requiert SpoutCraft launcher.
+nonSpoutCraftWarnMessage: You would have a better experience on this server with SpoutCraft.
+
+#                             #################################
+
+# EN: Usage of an official texture pack (only available for SpoutCraft users)
+#
+# By putting "restrictTexturePack" on "true", you will impose a texture pack to your players.
+# You will have to indicate its URL into "texturePackURL" (direct download zip file).
+#
+# Beware: The more this file is big, the more it will take time before it will available for
+# your users (obviously). They will play normally in the meantime.
+#
+# When the download starts, a popup (the "achievement" one) appears.
+# You can modify its item with the option "texturePackNotificationItem",
+# values you can use are readable on this page: http://bit.ly/AmJgMb
+#
+# Title ("texturePackNotificationTitle") and message ("texturePackNotificationMessage")
+# can also be customized but will be truncated if you exceed 26 characters.
+#                                    -------------------
+# FR: Utilisation d'un pack de textures officiel (seulement pour les utilisateurs de SpoutCraft)
+#
+# En mettant "restrictTexturePack" sur "true", vous imposerez un pack de textures à vos joueurs.
+# Vous devrez indiquer son URL dans "texturePackURL" (fichier zip en téléchargement direct).
+#
+# Attention : Plus ce fichier est gros, plus ça prendra de temps pour qu'il soit disponible
+# pour vos utilisateurs (évidemment). Ils pourront jouer normalement en attendant.
+#
+# Quand le téléchargement commence, un popup (celle des succès) apparait.
+# Vous pouvez en modifier l'icône avec l'option "texturePackNotificationItem", les valeurs
+# que vous pouvez utiliser sont visibles sur cette page : http://bit.ly/AmJgMb
+#
+# Le titre ("texturePackNotificationTitle") et le message ("texturePackNotificationMessage")
+# peuvent également être personnalisés mais seront tronqués si vous dépassez 26 caractères.
+
+restrictTexturePack: false
+texturePackURL: ''
+texturePackNotificationItem: MAP
+texturePackNotificationTitle: Camouflage pack is loading
+texturePackNotificationMessage: Wait for the end of DL...
+
+#                             #################################
+
+# EN: Advanced settings
+#
+# Number of tries to add/remove a creature to/from the list of ones managed by this plugin.
+#                                    -------------------
+# FR: Réglages avancés
+#
+# Nombre d'essais pour ajouter/retirer une créature à/de la liste de celles gérées par ce plugin.
+
+maxAddTries: 3
+maxDelTries: 3
