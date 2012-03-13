@@ -142,16 +142,16 @@ skins:
 # "found" quand une créature vous détecte,
 # "empty" quand la jauge d'énergie est vide.
 
-activateSoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/activate.ogg
+activateSoundUrl: http://dl.dropbox.com/u/66799994/Camouflage/activate.ogg
 activateSoundCooldown: 20
 
-inactivateSoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/activate.ogg
+inactivateSoundUrl: http://dl.dropbox.com/u/66799994/Camouflage/activate.ogg
 inactivateSoundCooldown: 20
 
-foundSoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/found.ogg
+foundSoundUrl: http://dl.dropbox.com/u/66799994/Camouflage/found.ogg
 foundSoundCooldown: 20
 
-emptySoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/empty.ogg
+emptySoundUrl: http://dl.dropbox.com/u/66799994/Camouflage/empty.ogg
 emptySoundCooldown: 20
 
 #                             #################################
@@ -419,14 +419,14 @@ blows:
       multiplier: 2.0
       title: Critical hit!
       message: Blow has made 2x damage
-      sound: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/pan.ogg
+      sound: http://dl.dropbox.com/u/66799994/Camouflage/pan.ogg
       
     lethal:
       percent: 20.0
       multiplier: 10.0
       title: Lethal weapon!
       message: You've made a one shot!
-      sound: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/yah.ogg
+      sound: http://dl.dropbox.com/u/66799994/Camouflage/yah.ogg
       
   arrow:
     critical:
@@ -434,7 +434,7 @@ blows:
       multiplier: 1.5
       title: Critical hit!
       message: Nice shot, big damages!
-      sound: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/pan.ogg
+      sound: http://dl.dropbox.com/u/66799994/Camouflage/pan.ogg
 
 #                             #################################
 
