@@ -38,7 +38,15 @@
 # A radius of 2 will test 25 blocks, a radius of 3 will test 49.
 #
 # If you set "predatorView" to 0, the visual effect during a player is camouflaged is disabled.
-# You can change this amplifier as you want, the default value is 4.
+# You can change this amplifier as you want, the default value is 6.
+#
+# The "energy" section contains settings for energy consummation of the camouflage suit.
+# The syntax is: (do not forget the 2 spaces at the lines' beginning)
+#
+#  energy:
+#    material: <item to use as fuel (list here: http://bit.ly/AmJgMb)>
+#    frequency: <frequency on which the fuel is consumed (in "ticks", 100 = every 5 seconds)>
+#    warning: <message displayed when the gauge is empty>
 #                                    -------------------
 # FR: Réglages du méchanisme de camouflage
 #
@@ -51,11 +59,24 @@
 # Un radius de 2 testera 25 blocs, un radius de 3 en testera 49.
 #
 # Si vous mettez "predatorView" à 0, l'effet visuel pendant le camouflage du joueur est désactivé.
-# Vous pouvez changer ce multiplicateur à votre guise, la valeur par défaut est 4.
+# Vous pouvez changer ce multiplicateur à votre guise, la valeur par défaut est 6.
+#
+# La section "energy" comporte les réglages pour la consommation d'énergie de la tenue de camouflage.
+# La syntaxe est la suivante : (n'oubliez pas les 2 espaces en début de lignes)
+#
+#  energy:
+#    material: <item à utiliser comme carburant (liste ici : http://bit.ly/AmJgMb)>
+#    frequency: <fréquence à laquelle le carburant est consommé (en "ticks", 100 = toutes les 5 sec)>
+#    warning: <message affiché quand la jauge est vide>
 
 updatePeriod: 20
 blockRadius: 2
-predatorView: 4
+predatorView: 6
+
+energy:
+  material: REDSTONE
+  frequency: 100
+  warning: You need some <energy>!
 
 #                             #################################
 
@@ -76,6 +97,7 @@ skins:
   green:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/green.png
   brown:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/brown.png
   grey:   https://github.com/arboriginal/Camouflage/raw/master/default_skins/grey.png
+  gravel: https://github.com/arboriginal/Camouflage/raw/master/default_skins/gravel.png
   yellow: https://github.com/arboriginal/Camouflage/raw/master/default_skins/yellow.png
   pblack:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pblack.png
   pwhite:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pwhite.png
@@ -83,7 +105,54 @@ skins:
   pgreen:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pgreen.png
   pbrown:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/pbrown.png
   pgrey:   https://github.com/arboriginal/Camouflage/raw/master/default_skins/pgrey.png
+  pgravel: https://github.com/arboriginal/Camouflage/raw/master/default_skins/pgravel.png
   pyellow: https://github.com/arboriginal/Camouflage/raw/master/default_skins/pyellow.png
+
+#                             #################################
+
+# EN: Sound effects.
+#
+# Settings of the sound effects for specific actions.
+# Each action has its 2 options:
+# "<action>SoundUrl" for the sound file's url (ogg, wav or mp3)
+# "<action>SoundCooldown" delay before to can play again the sound (in "ticks", 20 = 1 sec)
+#
+# Beware: If you put longer sounds, put a higher value for the "cooldown",
+# otherwise you could be spammed by overlaped sounds.
+#
+# Actions are:
+# "activate" for activating the camouflage suit,
+# "inactivate" for inactivating the camouflage suit,
+# "found" when a creature detects you,
+# "empty" when the energy gauge is empty.
+#                                    -------------------
+# FR: Effets sonores.
+#
+# Réglages des effets sonores pour des actions spécifiques.
+# Chaque action a ses 2 options :
+# "<action>SoundUrl" pour l'adresse du fichier sonore (ogg, wav ou mp3)
+# "<action>SoundCooldown" délai avant de pouvoir rejouer le son (en "ticks", 20 = 1 sec)
+#
+# Attention : Si vous mettez des sons plus longs, changez le "cooldown" pour une valeur supérieure,
+# sinon vous pourriez être "spammés" de sons qui se chevauchent.
+#
+# Les actions sont :
+# "activate" pour l'activation de la tenue de camouflage,
+# "inactivate" pour la désactivation de la tenue de camouflage,
+# "found" quand une créature vous détecte,
+# "empty" quand la jauge d'énergie est vide.
+
+activateSoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/activate.ogg
+activateSoundCooldown: 20
+
+inactivateSoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/activate.ogg
+inactivateSoundCooldown: 20
+
+foundSoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/found.ogg
+foundSoundCooldown: 20
+
+emptySoundUrl: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/empty.ogg
+emptySoundCooldown: 20
 
 #                             #################################
 
@@ -164,6 +233,9 @@ blocksGroups:
   - OBSIDIAN
   - WOOL:15
   - WOOD:1
+  
+  gravel:
+  - GRAVEL
 
 #                             #################################
 
@@ -204,6 +276,7 @@ creatures:
     stone: pgrey
     brown: pbrown
     black: pblack
+    gravel: pgravel
 
   CREEPER:
     water: blue
@@ -213,6 +286,7 @@ creatures:
     stone: grey
     brown: brown
     black: black
+    gravel: gravel
 
   SKELETON:
     water: blue
@@ -222,6 +296,7 @@ creatures:
     stone: grey
     brown: brown
     black: black
+    gravel: gravel
 
   ZOMBIE:
     water: pblue
@@ -231,6 +306,135 @@ creatures:
     stone: pgrey
     brown: pbrown
     black: pblack
+    gravel: pgravel
+
+#                             #################################
+
+# EN: Creature's dupping settings
+#
+# If your players have one of the "camouflage.use.dupe" permissions,
+# those settings will be employed when they meet a creature AND are camouflaged.
+#
+# You can make a settings group by monster type (list here: http://bit.ly/wtGoJx).
+# The non listed ones will use "default" settings.
+#
+# Also note that if you hit a creature with an arrow, without being in his field of vision,
+# you will not be detected.
+#
+# The syntax is: (do not forget the 2, then 4 spaces at the line's beginning)
+#
+#  <creature name>:
+#    farDistance: <number of blocks for "far" area (beyond it, player is not detected)>
+#    farAngle: <vision angle of the creature at "far" distance>
+#    nearDistance: <number of blocks for "near" area>
+#    nearAngle: <vision angle of the creature at "near" distance>
+#                                    -------------------
+# FR: Réglages de la tromperie des créatures
+#
+# Si vos joueurs ont une ou plusieurs des permissions "camouflage.use.dupe",
+# ces réglages sont employés quand ils rencontrent une créature ET qu'ils sont camouflés.
+#
+# Vous pouvez faire un groupe de réglage par type de monstre (liste ici : http://bit.ly/wtGoJx).
+# Ceux qui ne seront pas listés utiliseront les réglages "default".
+#
+# Notez également que si vous touchez une créature avec une flêche, sans être dans
+# champ de vision, vous ne serez pas détecté.
+#
+# La syntaxe est : (n'oubliez pas les 2, puis 4 espaces en début de ligne)
+#
+#  <nom de la créature>:
+#    farDistance: <nombre de blocs de la zone "lointaine" (au delà, le joueur n'est pas détecté)>
+#    farAngle: <angle de vision de la créature à distance "lointaine">
+#    nearDistance: <nombre de blocs de la zone "proche">
+#    nearAngle: <angle de vision de la créature à distance "proche">
+
+dupeCreatures:
+  default:
+    farDistance: 10
+    farAngle: 90
+    nearDistance: 3
+    nearAngle: 180
+    
+  CREEPER:
+    farDistance: 8
+    farAngle: 45
+    nearDistance: 2
+    nearAngle: 90
+    
+  ENDERMAN:
+    farDistance: 0
+    
+  SPIDER:
+    farAngle: 120
+    nearAngle: 240
+    
+  CAVE_SPIDER:
+    farAngle: 60
+    nearAngle: 120
+    
+  ZOMBIE:
+    farDistance: 5
+    farAngle: 60
+    nearDistance: 2
+    nearAngle: 90
+
+#                             #################################
+
+# EN: "special blows" settings.
+#
+# When a player is camouflaged, he can realise some "special blows" on creatures
+# (only if not detected). You have to define them here.
+# The "player" section correspond to direct player attacks, "arrow" to bow relative ones.
+#
+# The syntax is: (beware of spaces at the lines' beginning)
+#
+#  player/arrow:
+#    <uniq code name>:
+#      percent: <pourcent of chance that this special blow happens (required)>
+#      multiplier: <multiplier quotient for the blow's damages (required)>
+#      title: <title of the "achievement" box (optionnal, 26 characters max)>
+#      message: <message of the "achievement" box (optionnal, 26 characters max)>
+#      sound: <internet address of the sound file (optionnal)>
+#                                    -------------------
+# FR: Réglages des "coups spéciaux".
+#
+# Quand un joueur est camouflé, il peut réaliser des "coups spéciaux" sur les créatures
+# (uniquement s'il n'est pas détecté). C'est à vous de les définir ici.
+# La section "player" correspond aux attaques directes du joueur, "arrow" à l'arc.
+#
+# La syntaxe est : (attention aux espaces de début de ligne)
+#
+#  player/arrow:
+#    <nom de code unique>:
+#      percent: <pourcentage de chance que ce coup spécial soit réalisé (obligatoire)>
+#      multiplier: <quotient multiplicateur pour les dommages du coup porté (obligatoire)>
+#      title: <titre de la boite de "succès" (optionnel, 26 caractères max)>
+#      message: <message de la boite de "succès" (optionnel, 26 caractères max)>
+#      sound: <adresse internet du fichier sonore (optionnel)>
+
+blows:
+  player:
+    critical:
+      percent: 50.0
+      multiplier: 2.0
+      title: Critical hit!
+      message: Blow has made 2x damage
+      sound: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/pan.ogg
+      
+    lethal:
+      percent: 20.0
+      multiplier: 10.0
+      title: Lethal weapon!
+      message: You've made a one shot!
+      sound: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/yah.ogg
+      
+  arrow:
+    critical:
+      percent: 30.0
+      multiplier: 1.5
+      title: Critical hit!
+      message: Nice shot, big damages!
+      sound: https://github.com/arboriginal/Camouflage/raw/master/default_sounds/pan.ogg
 
 #                             #################################
 
@@ -252,7 +456,7 @@ creatures:
 
 allowNonSpoutCraftUser: true
 alertNonSpoutCraftUser: true
-nonSpoutCraftKickMessage: Sorry, CraftBukkit requiert SpoutCraft launcher.
+nonSpoutCraftKickMessage: Sorry, CraftBukkit requires SpoutCraft launcher.
 nonSpoutCraftWarnMessage: You would have a better experience on this server with SpoutCraft.
 
 #                             #################################
@@ -297,11 +501,83 @@ texturePackNotificationMessage: Wait for the end of DL...
 
 # EN: Advanced settings
 #
+# maxAddTries / maxDelTries
 # Number of tries to add/remove a creature to/from the list of ones managed by this plugin.
+#
+# The "interface" section contains settings for the visual interface displayed when
+# the camouflage suit is used. There are 3 settings groups, "left" and "right" work
+# in the same way: (beware of spaces at the lines' beginning)
+#
+#  left/right:
+#    active:
+#      image: <url of the image for left/right interface when camouflage mode is active>
+#      width: <its width>
+#      height: <its height>
+#    inactive:
+#      image: <url of the image for left/right interface when camouflage mode is not active>
+#      width: <its width>
+#      height: <its height>
+#
+# "item" and "counter" sections indicate the positionning of the item used as fuel and its counter.
+# Each number corresponds to a number of pixels:
+# "size" for the item size,
+# "posX" for horizontal position relative to the left border,
+# "posY" for vertical position relative to the top border.
 #                                    -------------------
 # FR: Réglages avancés
 #
+# maxAddTries / maxDelTries
 # Nombre d'essais pour ajouter/retirer une créature à/de la liste de celles gérées par ce plugin.
+#
+# La section "interface" comporte les réglages pour l'interface visuelle affichée quand la tenue
+# de camouflage est utilisée. Il y a 3 groupes de réglages, "left" (gauche) et "right" (droit)
+# fonctionnent de la même façon : (attention aux espaces de début de ligne)
+#
+#  left/right:
+#    active:
+#      image: <url de l'image pour l'interface gauche/droite quand le mode camouflage est activé>
+#      width: <sa largeur>
+#      height: <sa hauteur>
+#    inactive:
+#      image: <url de l'image pour l'interface gauche/droite quand le mode camouflage n'est pas activé>
+#      width: <sa largeur>
+#      height: <sa hauteur>
+#
+# Les sections "item" et "counter" indiquent les positionnements de l'item servant de carburant
+# et son compteur. Chaque nombre correspond à un nombre de pixels :
+# "size" pour la taille de l'item,
+# "posX" pour la position horizontale par rapport au bord gauche,
+# "posY" pour la position verticale par rapport au bord haut.
 
 maxAddTries: 3
 maxDelTries: 3
+
+interface:
+  left:
+    active:
+      image: https://github.com/arboriginal/Camouflage/raw/master/default_hud/hud-left-on.png
+      width: 5
+      height: 237
+    inactive:
+      image: https://github.com/arboriginal/Camouflage/raw/master/default_hud/hud-left-off.png
+      width: 5
+      height: 237
+      
+  right:
+    active:
+      image: https://github.com/arboriginal/Camouflage/raw/master/default_hud/hud-right-on.png
+      width: 5
+      height: 237
+    inactive:
+      image: https://github.com/arboriginal/Camouflage/raw/master/default_hud/hud-right-off.png
+      width: 5
+      height: 237
+      
+  item:
+    size: 7
+    posX: 7
+    posY: 2
+    
+  counter:
+    posX: 25
+    posY: 7

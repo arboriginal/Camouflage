@@ -1,6 +1,6 @@
-name: camouflage
+name: Camouflage
 main: me.arboriginal.camouflage.Camouflage
-version: 1.0
+version: 2.0
 author: arboriginal
 website: http://dev.bukkit.org/server-mods/camouflage/
 dev-url: https://github.com/arboriginal/Camouflage
@@ -10,7 +10,7 @@ depend: [Spout]
 commands:
     camouflage-reload:
         description: Camouflage Configuration Reload (ccr)
-        permission: camouflage.reload
+        permission: camouflage.admin.reload
         usage: /camouflage-reload
         aliases: [ccr]
 
@@ -18,13 +18,58 @@ permissions:
     camouflage.*:
         description: Give access to all Camouflage functions
         children:
-            camouflage.reload: true
+            camouflage.admin: true
             camouflage.use: true
+            
+    camouflage.admin.*:
+        description: Give access to all Camouflage's admin functions
+        children:
+            camouflage.reload: true
     
-    camouflage.reload:
+    camouflage.admin.reload:
         description: Allow to reload the plugin configuration
         default: op
         
-    camouflage.use:
-        description: Allow to use camouflage by sneaking
+    camouflage.use.*:
+        description: Give access to all Camouflage's user functions
+        children:
+            camouflage.use.free: true
+            camouflage.use.activate: true
+            camouflage.use.update: true
+            camouflage.use.move: true
+            camouflage.use.dupe: true
+        
+    camouflage.use.free:
+        description: Allow to use camouflage functions without consuming energy
+        default: op
+        
+    camouflage.use.activate:
+        description: Allow to activate camouflage by sneaking
+        default: true
+        
+    camouflage.use.update:
+        description: Update camouflage when sneaking and moving
+        default: true
+        
+    camouflage.use.move:
+        description: Keep camouflage when sneaking and moving
+        default: true
+        
+    camouflage.use.dupe:
+        description: Allow to dupe creature when camouflaged regardless of distance
+        children:
+            camouflage.use.dupe.far: true
+            camouflage.use.dupe.near: true
+            camouflage.use.dupe.arrow: true
+        
+    camouflage.use.dupe.far:
+        description: Allow to dupe creature when camouflaged and far from it
+        default: true
+        
+    camouflage.use.dupe.near:
+        description: Allow to dupe creature when camouflaged and near from it
+        default: true
+        
+    camouflage.use.dupe.arrow:
+        description: Allow to dupe creature touched by an arrow when not detected
         default: true
