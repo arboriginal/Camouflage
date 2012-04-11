@@ -243,7 +243,7 @@ blocksGroups:
 #
 # You will associate skins (that you have indicated above) to creatures.
 # Just do a section by chameleon creature and indicate for each blocks group the "code name"
-# of the associated skin (Creatures' names on this page: http://bit.ly/wtGoJx).
+# of the associated skin (Creatures' names on this page: http://bit.ly/HyrjKG).
 #
 # For players, use "PLAYER".
 #
@@ -257,7 +257,7 @@ blocksGroups:
 #
 # Vous allez associer les skins (que vous avez indiquez plus haut) aux créatures.
 # Il suffit de faire une section par créature caméléon et y indiquer pour chaque groupe de blocs
-# le "nom de code" de la skin associée (Noms des créatures sur cette page : http://bit.ly/wtGoJx).
+# le "nom de code" de la skin associée (Noms des créatures sur cette page : http://bit.ly/HyrjKG).
 #
 # Pour les joueurs, utilisez "PLAYER".
 #
@@ -315,7 +315,7 @@ creatures:
 # If your players have one of the "camouflage.use.dupe" permissions,
 # those settings will be employed when they meet a creature AND are camouflaged.
 #
-# You can make a settings group by monster type (list here: http://bit.ly/wtGoJx).
+# You can make a settings group by monster type (list here: http://bit.ly/HyrjKG).
 # The non listed ones will use "default" settings.
 #
 # Also note that if you hit a creature with an arrow, without being in his field of vision,
@@ -334,7 +334,7 @@ creatures:
 # Si vos joueurs ont une ou plusieurs des permissions "camouflage.use.dupe",
 # ces réglages sont employés quand ils rencontrent une créature ET qu'ils sont camouflés.
 #
-# Vous pouvez faire un groupe de réglage par type de monstre (liste ici : http://bit.ly/wtGoJx).
+# Vous pouvez faire un groupe de réglage par type de monstre (liste ici : http://bit.ly/HyrjKG).
 # Ceux qui ne seront pas listés utiliseront les réglages "default".
 #
 # Notez également que si vous touchez une créature avec une flêche, sans être dans
@@ -574,7 +574,7 @@ interface:
       height: 237
       
   item:
-    size: 7
+    size: 15
     posX: 7
     posY: 2
     

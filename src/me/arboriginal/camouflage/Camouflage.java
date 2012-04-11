@@ -28,8 +28,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Creature;
-import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
@@ -44,6 +44,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetEvent.TargetReason;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -57,7 +58,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.event.input.KeyBindingEvent;
-import org.getspout.spoutapi.event.inventory.InventoryCloseEvent;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.event.spout.SpoutcraftFailedEvent;
 import org.getspout.spoutapi.gui.GenericItemWidget;
@@ -76,17 +76,19 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	protected FileConfiguration	               config;
 	protected Map<String, String>	             blocksGroups;
 	protected Map<String, Integer>	           composedBlocksGroups;
-	protected Map<String, Map<String, String>>	creatureTypes;
+	protected Map<String, Map<String, String>>	entityTypes;
 	protected Map<String, Map<String, Float>>	 dupeCreatures;
-	protected Map<String, Boolean>	           camouflaged	= new HashMap<String, Boolean>();
-	protected ArrayList<Integer>	             customMobs	 = new ArrayList<Integer>();
-	protected ArrayList<String>	               microTasks	 = new ArrayList<String>();
-	protected boolean	                         activated	 = false;
-	protected boolean	                         semaphore	 = false;
-	protected int	                             energy	     = 0;
+	protected ArrayList<String>	               camouflage_active	= new ArrayList<String>();
+	protected Map<String, Boolean>	           camouflage_mode	 = new HashMap<String, Boolean>();
+	protected ArrayList<Integer>	             customMobs	       = new ArrayList<Integer>();
+	protected ArrayList<String>	               microTasks	       = new ArrayList<String>();
+	protected boolean	                         activated	       = false;
+	protected boolean	                         semaphore	       = false;
+	protected int	                             energy	           = 0;
 	protected int	                             blockRadius;
 	protected int	                             maxAddTries;
 	protected int	                             maxDelTries;
+	protected int	                             predatorView;
 
 	// -----------------------------------------------------------------------------------------------
 	// SpoutPlugin related methods
@@ -102,19 +104,19 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 
 	@Override
 	public void reloadConfig() {
-		disableCustomMobs();
+		disablePluginTasks();
 		super.reloadConfig();
 		initConfig();
 
 		if (getServer().getOnlinePlayers().length > 0) {
-			activateCustomMobs();
+			activatePluginTasks();
 			refreshHUD();
 		}
 	}
 
 	@Override
 	public void onDisable() {
-		disableCustomMobs();
+		disablePluginTasks();
 	}
 
 	@Override
@@ -146,9 +148,9 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 
 			if (player.hasPermission("camouflage.use.activate")) {
 				String key = event.getPlayer().getName();
-				boolean is_camouflaged = !camouflaged.get(key);
+				boolean is_camouflaged = !camouflage_mode.get(key);
 
-				camouflaged.put(key, is_camouflaged);
+				camouflage_mode.put(key, is_camouflaged);
 
 				if (is_camouflaged) {
 					buildInterface(player);
@@ -197,10 +199,10 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onPlayerJoin(PlayerJoinEvent event) {
-		camouflaged.put(event.getPlayer().getName(), false);
+		camouflage_mode.put(event.getPlayer().getName(), false);
 
 		if (!activated) {
-			activateCustomMobs();
+			activatePluginTasks();
 		}
 	}
 
@@ -208,10 +210,11 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	public void onPlayerQuit(PlayerQuitEvent event) {
 		SpoutPlayer player = (SpoutPlayer) event.getPlayer();
 		player.getMainScreen().removeWidgets(this);
-		camouflaged.remove(player.getName());
+		camouflage_mode.remove(player.getName());
+		camouflage_active.remove(player.getName());
 
 		if (getServer().getOnlinePlayers().length == 1) {
-			disableCustomMobs();
+			disablePluginTasks();
 		}
 	}
 
@@ -249,7 +252,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	public void onPlayerToggleSneak(PlayerToggleSneakEvent event) {
 		SpoutPlayer player = (SpoutPlayer) event.getPlayer();
 
-		if (camouflaged.get(player.getName())) {
+		if (camouflage_mode.get(player.getName())) {
 			setCustomPlayerSkin(player, player.isSneaking(), true);
 		}
 	}
@@ -301,7 +304,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onInventoryClose(InventoryCloseEvent event) {
 		requestUpdateCounter((SpoutPlayer) event.getPlayer());
 	}
@@ -329,35 +332,13 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 
 				if (target == null || target.getEntityId() != player.getEntityId()) {
 					double critical = criticalBlow((SpoutPlayer) player, reason);
-					
+
 					if (critical != 0) {
 						event.setDamage((int) Math.round(event.getDamage() * critical));
 					}
 				}
 			}
 		}
-	}
-
-	private double criticalBlow(SpoutPlayer player, String reason) {
-		double random = Math.random() * 100;
-
-		for (String blow : ((MemorySection) config.get("blows." + reason)).getValues(false).keySet()) {
-			if (config.getDouble("blows." + reason + "." + blow + ".percent") > random) {
-				String soundUrl = config.getString("blows." + reason + "." + blow + ".sound");
-				
-				if (!soundUrl.isEmpty()) {
-					SpoutManager.getSoundManager().playCustomSoundEffect(this, player, soundUrl, false);
-				}
-				
-				sendNotification(player, config.getString("blows." + reason + "." + blow + ".title"), //
-				    config.getString("blows." + reason + "." + blow + ".message"), //
-				    (reason.equals("arrow")) ? Material.BOW : Material.IRON_SWORD);
-				
-				return config.getDouble("blows." + reason + "." + blow + ".multiplier");
-			}
-		}
-
-		return 0;
 	}
 
 	// -----------------------------------------------------------------------------------------------
@@ -372,6 +353,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 			blockRadius = config.getInt("blockRadius");
 			maxAddTries = config.getInt("maxAddTries");
 			maxDelTries = config.getInt("maxDelTries");
+			predatorView = config.getInt("predatorView");
 
 			Material userChoice = Material.matchMaterial(config.getString("energy.material"));
 			energy = (userChoice != null) ? userChoice.getId() : 0;
@@ -440,16 +422,15 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	}
 
 	private void parseCreaturesSettings() {
-		creatureTypes = new HashMap<String, Map<String, String>>();
+		entityTypes = new HashMap<String, Map<String, String>>();
 		dupeCreatures = new HashMap<String, Map<String, Float>>();
 
 		List<String> types = new ArrayList<String>();
 		types.add("PLAYER");
 
-		for (CreatureType creatureType : CreatureType.values()) {
-			String type = creatureType.toString();
-
-			dupeCreatures.put(getCreatureClassName(type), parseDupeCreatureSettings(type));
+		for (EntityType entityType : EntityType.values()) {
+			String type = entityType.toString();
+			dupeCreatures.put(getEntityClassName(type), parseDupeCreatureSettings(type));
 			types.add(type);
 		}
 
@@ -470,16 +451,16 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 						}
 					}
 
-					creatureTypes.put(getCreatureClassName(type), creatureSkins);
+					entityTypes.put(getEntityClassName(type), creatureSkins);
 				}
 			}
 		}
 	}
 
-	private String getCreatureClassName(String creatureType) {
-		String className = (creatureType == "PLAYER") ? "SpoutCraft" : "Craft";
+	private String getEntityClassName(String entityType) {
+		String className = (entityType == "PLAYER") ? "SpoutCraft" : "Craft";
 
-		for (String part : creatureType.split("_")) {
+		for (String part : entityType.split("_")) {
 			className += part.substring(0, 1).toUpperCase() + part.substring(1).toLowerCase();
 		}
 
@@ -526,7 +507,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 		}
 	}
 
-	private void activateCustomMobs() {
+	private void activatePluginTasks() {
 		activated = true;
 		Long updatePeriod = config.getLong("updatePeriod");
 
@@ -555,9 +536,26 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 				}
 			}, 1L, updatePeriod);
 		}
+
+		if (predatorView > 0) {
+			getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+				@Override
+				public void run() {
+					ArrayList<?> playerList = (ArrayList<?>) camouflage_active.clone();
+
+					for (Object playerName : playerList) {
+						SpoutPlayer player = getSpoutServer().getPlayer((String) playerName);
+
+						if (player != null) {
+							setPredatorEffect(player, true);
+						}
+					}
+				}
+			}, 1L, 20L);
+		}
 	}
 
-	private void disableCustomMobs() {
+	private void disablePluginTasks() {
 		getServer().getScheduler().cancelTasks(this);
 
 		activated = false;
@@ -641,7 +639,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	}
 
 	private void refreshHUD() {
-		for (String name : camouflaged.keySet()) {
+		for (String name : camouflage_mode.keySet()) {
 			SpoutPlayer player = getSpoutServer().getPlayer(name);
 
 			player.getMainScreen().removeWidgets(this);
@@ -665,7 +663,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	}
 
 	private void requestUpdateCounter(SpoutPlayer player, int delay) {
-		if (energy > 0 && camouflaged.get(player.getName())) {
+		if (energy > 0 && camouflage_mode.get(player.getName())) {
 			String lockKey = player.getName() + "---COUNTER";
 
 			if (!microTasks.contains(lockKey)) {
@@ -692,8 +690,30 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 		    || from.getBlockZ() != to.getBlockZ();
 	}
 
+	private double criticalBlow(SpoutPlayer player, String reason) {
+		double random = Math.random() * 100;
+
+		for (String blow : ((MemorySection) config.get("blows." + reason)).getValues(false).keySet()) {
+			if (config.getDouble("blows." + reason + "." + blow + ".percent") > random) {
+				String soundUrl = config.getString("blows." + reason + "." + blow + ".sound");
+
+				if (!soundUrl.isEmpty()) {
+					SpoutManager.getSoundManager().playCustomSoundEffect(this, player, soundUrl, false);
+				}
+
+				sendNotification(player, config.getString("blows." + reason + "." + blow + ".title"), //
+				    config.getString("blows." + reason + "." + blow + ".message"), //
+				    (reason.equals("arrow")) ? Material.BOW : Material.IRON_SWORD);
+
+				return config.getDouble("blows." + reason + "." + blow + ".multiplier");
+			}
+		}
+
+		return 0;
+	}
+
 	private boolean isCamouflaged(Player player) {
-		return camouflaged.get(player.getName()) && player.isSneaking()
+		return camouflage_mode.get(player.getName()) && player.isSneaking()
 		    && (player.hasPermission("camouflage.use.free") || microTasks.contains(player.getName() + "---CONSUMME"));
 	}
 
@@ -834,8 +854,9 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 		}
 	}
 
+	// TODO---------------------------------------
+
 	private void setCustomPlayerSkin(SpoutPlayer player, boolean reset) {
-		int predatorView = config.getInt("predatorView");
 		String skinUrl;
 
 		if (reset) {
@@ -848,27 +869,39 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 				playSoundEffect(player, "inactivate");
 			}
 
-			if (config.getInt("predatorView") > 0) {
-				((CraftPlayer) player).getHandle().addEffect(new MobEffect(1, 0, 0));
-			}
+			setPredatorEffect(player, false);
 		}
 		else {
 			skinUrl = getEntitySkin(player);
 
 			if (!player.getSkin().equals(skinUrl)) {
-				if (predatorView > 0) {
-					((CraftPlayer) player).getHandle().addEffect(new MobEffect(1, 1, predatorView));
-					((CraftPlayer) player).getHandle().reset();
-				}
-
 				if (skinUrl != null) {
 					player.setSkin(skinUrl);
 				}
+
+				setPredatorEffect(player, true);
 			}
 		}
 
 		switchHUDstate(player, reset);
 	}
+
+	private void setPredatorEffect(SpoutPlayer player, boolean activate) {
+		if (predatorView > 0) {
+			if (activate) {
+				if (!camouflage_active.contains(player.getName())) {
+					camouflage_active.add(player.getName());
+				}
+
+				((CraftPlayer) player).getHandle().addEffect(new MobEffect(1, 40, predatorView));
+			}
+			else {
+				camouflage_active.remove(player.getName());
+			}
+		}
+	}
+
+	// TODO---------------------------------------
 
 	private void switchHUDstate(SpoutPlayer player, boolean reset) {
 		for (Widget widget : player.getMainScreen().getAttachedWidgets()) {
@@ -930,7 +963,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	}
 
 	private boolean shouldCustomizeEntity(Entity entity) {
-		return activated && entity != null && creatureTypes.containsKey(entity.getClass().getSimpleName());
+		return activated && entity != null && entityTypes.containsKey(entity.getClass().getSimpleName());
 	}
 
 	private String getEntitySkin(Entity entity) {
@@ -944,7 +977,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 			blockGroup = getBlocksGroup(masterBlock);
 		}
 
-		return creatureTypes.get(entity.getClass().getSimpleName()).get(blockGroup);
+		return entityTypes.get(entity.getClass().getSimpleName()).get(blockGroup);
 	}
 
 	private String getBlocksGroup(Block block) {
