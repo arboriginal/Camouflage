@@ -10,18 +10,17 @@
 # Add your own settings one by one to verify this is not one of them which produces the bug.
 #
 # Have fun!
-#
 #                                    -------------------
 #
 # FR: REGLAGES PAR DEFAUT.
 #
-# Lisez attentivement les explications pour comprendre comment chaque paramètres peuvent être
-# changés. Chaque ligne commençant par un dièse (#) est un commentaire, vous pouvez le supprimer
-# sans problèmes. Respectez scrupuleusement la syntaxe YAML (incluant les espaces, tirets, ...).
+# Lisez attentivement les explications pour comprendre comment chaque parametres peuvent etre
+# changes. Chaque ligne commencant par un diese (#) est un commentaire, vous pouvez le supprimer
+# sans problemes. Respectez scrupuleusement la syntaxe YAML (incluant les espaces, tirets, ...).
 #
-# Si vous rencontrez un problème, avant de soumettre un bug, déplacez votre config.yml dans un
-# autre répertoire et redémarrez votre serveur: Un nouveau config.yml sera créé. Ajouter vos
-# propres réglages un par un pour vérifier que ce n'est pas l'un d'entre eux qui provoque le bug.
+# Si vous rencontrez un probleme, avant de soumettre un bug, deplacez votre config.yml dans un
+# autre repertoire et redemarrez votre serveur: Un nouveau config.yml sera cree. Ajouter vos
+# propres reglages un par un pour verifier que ce n'est pas l'un d'entre eux qui provoque le bug.
 #
 # Amusez vous !
 #
@@ -48,26 +47,26 @@
 #    frequency: <frequency on which the fuel is consumed (in "ticks", 100 = every 5 seconds)>
 #    warning: <message displayed when the gauge is empty>
 #                                    -------------------
-# FR: Réglages du méchanisme de camouflage
+# FR: Reglages du mechanisme de camouflage
 #
-# "updatePeriod" est le nombre de "ticks" serveur entre 2 vérification de la skin d'une créature
-# (20 ticks = 1 sec). Si vous mettez 0, la créature conservera la skin qu'elle aura eu du groupe
+# "updatePeriod" est le nombre de "ticks" serveur entre 2 verification de la skin d'une creature
+# (20 ticks = 1 sec). Si vous mettez 0, la creature conservera la skin qu'elle aura eu du groupe
 # de blocs sur lequel elle est apparue.
 #
-# "blockRadius" est le rayon autour de la créature utilisé pour comparer les blocs.
-# Mettez 0 pour utiliser uniquement celui situé sous celle-ci.
+# "blockRadius" est le rayon autour de la creature utilise pour comparer les blocs.
+# Mettez 0 pour utiliser uniquement celui situe sous celle-ci.
 # Un radius de 2 testera 25 blocs, un radius de 3 en testera 49.
 #
-# Si vous mettez "predatorView" à 0, l'effet visuel pendant le camouflage du joueur est désactivé.
-# Vous pouvez changer ce multiplicateur à votre guise, la valeur par défaut est 6.
+# Si vous mettez "predatorView" a 0, l'effet visuel pendant le camouflage du joueur est desactive.
+# Vous pouvez changer ce multiplicateur a votre guise, la valeur par defaut est 6.
 #
-# La section "energy" comporte les réglages pour la consommation d'énergie de la tenue de camouflage.
-# La syntaxe est la suivante : (n'oubliez pas les 2 espaces en début de lignes)
+# La section "energy" comporte les reglages pour la consommation d'energie de la tenue de camouflage.
+# La syntaxe est la suivante : (n'oubliez pas les 2 espaces en debut de lignes)
 #
 #  energy:
-#    material: <item à utiliser comme carburant (liste ici : http://bit.ly/AmJgMb)>
-#    frequency: <fréquence à laquelle le carburant est consommé (en "ticks", 100 = toutes les 5 sec)>
-#    warning: <message affiché quand la jauge est vide>
+#    material: <item a utiliser comme carburant (liste ici : http://bit.ly/AmJgMb)>
+#    frequency: <frequence a laquelle le carburant est consomme (en "ticks", 100 = toutes les 5 sec)>
+#    warning: <message affiche quand la jauge est vide>
 
 updatePeriod: 20
 blockRadius: 2
@@ -85,10 +84,10 @@ energy:
 # A skin by line, the syntax is "<code name>: <internet address>".
 # Those "code names" will serve you in the creatures' setting not to repeat the URL.
 #                                    -------------------
-# FR: Liste des skins personnalisées qui seront utilisées.
+# FR: Liste des skins personnalisees qui seront utilisees.
 #
 # Une skin par ligne, la syntaxe est "<nom de code>: <adresse internet>".
-# Ces "noms de code" vous serviront dans le réglage des créatures pour ne pas répéter l'URL.
+# Ces "noms de code" vous serviront dans le reglage des creatures pour ne pas repeter l'URL.
 
 skins:
   black:  https://github.com/arboriginal/Camouflage/raw/master/default_skins/black.png
@@ -128,19 +127,19 @@ skins:
 #                                    -------------------
 # FR: Effets sonores.
 #
-# Réglages des effets sonores pour des actions spécifiques.
+# Reglages des effets sonores pour des actions specifiques.
 # Chaque action a ses 2 options :
 # "<action>SoundUrl" pour l'adresse du fichier sonore (ogg, wav ou mp3)
-# "<action>SoundCooldown" délai avant de pouvoir rejouer le son (en "ticks", 20 = 1 sec)
+# "<action>SoundCooldown" delai avant de pouvoir rejouer le son (en "ticks", 20 = 1 sec)
 #
-# Attention : Si vous mettez des sons plus longs, changez le "cooldown" pour une valeur supérieure,
-# sinon vous pourriez être "spammés" de sons qui se chevauchent.
+# Attention : Si vous mettez des sons plus longs, changez le "cooldown" pour une valeur superieure,
+# sinon vous pourriez etre "spammes" de sons qui se chevauchent.
 #
 # Les actions sont :
 # "activate" pour l'activation de la tenue de camouflage,
-# "inactivate" pour la désactivation de la tenue de camouflage,
-# "found" quand une créature vous détecte,
-# "empty" quand la jauge d'énergie est vide.
+# "inactivate" pour la desactivation de la tenue de camouflage,
+# "found" quand une creature vous detecte,
+# "empty" quand la jauge d'energie est vide.
 
 activateSoundUrl: http://dl.dropbox.com/u/66799994/Camouflage/activate.ogg
 activateSoundCooldown: 20
@@ -176,18 +175,18 @@ emptySoundCooldown: 20
 #                                    -------------------
 # FR: Liste des groupes de blocs.
 #
-# Vous allez séparer ici les blocs en différents groupes. La syntaxe est simple :
-# (attention, n'oubliez pas les 2 espaces en début de lignes)
+# Vous allez separer ici les blocs en differents groupes. La syntaxe est simple :
+# (attention, n'oubliez pas les 2 espaces en debut de lignes)
 #
 #  <nom du groupe>:
 #  - <nom d'un bloc>
 #  - <nom d'un autre bloc>
 #
 # Vous trouverez les noms de blocs dans cette liste : http://bit.ly/AmJgMb
-# Il n'est pas nécessaire de lister tous les blocs.
+# Il n'est pas necessaire de lister tous les blocs.
 #
-# Pour les blocs possédant des sous-matériaux (consultez cette page : http://bit.ly/AjlMdt),
-# vous pouvez utiliser le nom du bloc suivi de ":<numéro du sous-matériau>" pour les différencier.
+# Pour les blocs possedant des sous-materiaux (consultez cette page : http://bit.ly/AjlMdt),
+# vous pouvez utiliser le nom du bloc suivi de ":<numero du sous-materiau>" pour les differencier.
 #
 # Exemples : "WOOL:3" pour la laine bleu, "WOOD:2" pour les buches de boulot.
 #            "LEAVES" pour tous les types de feuilles.
@@ -233,7 +232,7 @@ blocksGroups:
   - OBSIDIAN
   - WOOL:15
   - WOOD:1
-  
+
   gravel:
   - GRAVEL
 
@@ -253,17 +252,17 @@ blocksGroups:
 #    <a blocks group name>: <skin code name>
 #    <another blocks group name>: <skin code name>
 #                                    -------------------
-# FR: Réglages des créatures
+# FR: Reglages des creatures
 #
-# Vous allez associer les skins (que vous avez indiquez plus haut) aux créatures.
-# Il suffit de faire une section par créature caméléon et y indiquer pour chaque groupe de blocs
-# le "nom de code" de la skin associée (Noms des créatures sur cette page : http://bit.ly/HyrjKG).
+# Vous allez associer les skins (que vous avez indiquez plus haut) aux creatures.
+# Il suffit de faire une section par creature cameleon et y indiquer pour chaque groupe de blocs
+# le "nom de code" de la skin associee (Noms des creatures sur cette page : http://bit.ly/HyrjKG).
 #
 # Pour les joueurs, utilisez "PLAYER".
 #
-# La syntaxe est : (n'oubliez pas les 2, puis 4 espaces en début de ligne)
+# La syntaxe est : (n'oubliez pas les 2, puis 4 espaces en debut de ligne)
 #
-#  <nom de la créature>:
+#  <nom de la creature>:
 #    <nom d'un groupe de blocs>: <nom de code d'une skin>
 #    <nom d'un autre groupe de blocs>: <nom de code d'une skin>
 
@@ -329,24 +328,24 @@ creatures:
 #    nearDistance: <number of blocks for "near" area>
 #    nearAngle: <vision angle of the creature at "near" distance>
 #                                    -------------------
-# FR: Réglages de la tromperie des créatures
+# FR: Reglages de la tromperie des creatures
 #
 # Si vos joueurs ont une ou plusieurs des permissions "camouflage.use.dupe",
-# ces réglages sont employés quand ils rencontrent une créature ET qu'ils sont camouflés.
+# ces reglages sont employes quand ils rencontrent une creature ET qu'ils sont camoufles.
 #
-# Vous pouvez faire un groupe de réglage par type de monstre (liste ici : http://bit.ly/HyrjKG).
-# Ceux qui ne seront pas listés utiliseront les réglages "default".
+# Vous pouvez faire un groupe de reglage par type de monstre (liste ici : http://bit.ly/HyrjKG).
+# Ceux qui ne seront pas listes utiliseront les reglages "default".
 #
-# Notez également que si vous touchez une créature avec une flêche, sans être dans
-# champ de vision, vous ne serez pas détecté.
+# Notez egalement que si vous touchez une creature avec une fleche, sans etre dans
+# champ de vision, vous ne serez pas detecte.
 #
-# La syntaxe est : (n'oubliez pas les 2, puis 4 espaces en début de ligne)
+# La syntaxe est : (n'oubliez pas les 2, puis 4 espaces en debut de ligne)
 #
-#  <nom de la créature>:
-#    farDistance: <nombre de blocs de la zone "lointaine" (au delà, le joueur n'est pas détecté)>
-#    farAngle: <angle de vision de la créature à distance "lointaine">
+#  <nom de la creature>:
+#    farDistance: <nombre de blocs de la zone "lointaine" (au dela, le joueur n'est pas detecte)>
+#    farAngle: <angle de vision de la creature a distance "lointaine">
 #    nearDistance: <nombre de blocs de la zone "proche">
-#    nearAngle: <angle de vision de la créature à distance "proche">
+#    nearAngle: <angle de vision de la creature a distance "proche">
 
 dupeCreatures:
   default:
@@ -354,24 +353,24 @@ dupeCreatures:
     farAngle: 90
     nearDistance: 3
     nearAngle: 180
-    
+
   CREEPER:
     farDistance: 8
     farAngle: 45
     nearDistance: 2
     nearAngle: 90
-    
+
   ENDERMAN:
     farDistance: 0
-    
+
   SPIDER:
     farAngle: 120
     nearAngle: 240
-    
+
   CAVE_SPIDER:
     farAngle: 60
     nearAngle: 120
-    
+
   ZOMBIE:
     farDistance: 5
     farAngle: 60
@@ -396,20 +395,20 @@ dupeCreatures:
 #      message: <message of the "achievement" box (optionnal, 26 characters max)>
 #      sound: <internet address of the sound file (optionnal)>
 #                                    -------------------
-# FR: Réglages des "coups spéciaux".
+# FR: Reglages des "coups speciaux".
 #
-# Quand un joueur est camouflé, il peut réaliser des "coups spéciaux" sur les créatures
-# (uniquement s'il n'est pas détecté). C'est à vous de les définir ici.
-# La section "player" correspond aux attaques directes du joueur, "arrow" à l'arc.
+# Quand un joueur est camoufle, il peut realiser des "coups speciaux" sur les creatures
+# (uniquement s'il n'est pas detecte). C'est a vous de les definir ici.
+# La section "player" correspond aux attaques directes du joueur, "arrow" a l'arc.
 #
-# La syntaxe est : (attention aux espaces de début de ligne)
+# La syntaxe est : (attention aux espaces de debut de ligne)
 #
 #  player/arrow:
 #    <nom de code unique>:
-#      percent: <pourcentage de chance que ce coup spécial soit réalisé (obligatoire)>
-#      multiplier: <quotient multiplicateur pour les dommages du coup porté (obligatoire)>
-#      title: <titre de la boite de "succès" (optionnel, 26 caractères max)>
-#      message: <message de la boite de "succès" (optionnel, 26 caractères max)>
+#      percent: <pourcentage de chance que ce coup special soit realise (obligatoire)>
+#      multiplier: <quotient multiplicateur pour les dommages du coup porte (obligatoire)>
+#      title: <titre de la boite de "succes" (optionnel, 26 caracteres max)>
+#      message: <message de la boite de "succes" (optionnel, 26 caracteres max)>
 #      sound: <adresse internet du fichier sonore (optionnel)>
 
 blows:
@@ -420,14 +419,14 @@ blows:
       title: Critical hit!
       message: Blow has made 2x damage
       sound: http://dl.dropbox.com/u/66799994/Camouflage/pan.ogg
-      
+
     lethal:
       percent: 20.0
       multiplier: 10.0
       title: Lethal weapon!
       message: You've made a one shot!
       sound: http://dl.dropbox.com/u/66799994/Camouflage/yah.ogg
-      
+
   arrow:
     critical:
       percent: 30.0
@@ -446,10 +445,10 @@ blows:
 # By putting "alertNonSpoutCraftUser" on "false", they will not receive the message of the
 # "nonSpoutCraftWarnMessage" option (possibles values: "true" / "false").
 #                                    -------------------
-# FR: Réglages relatifs au lanceur SpoutCraft
+# FR: Reglages relatifs au lanceur SpoutCraft
 #
 # En mettant "allowNonSpoutCraftUser" sur "false", les joueurs n'utilisant pas SpoutCraft
-# seront jetés du serveur avec le message de l'option "nonSpoutCraftKickMessage".
+# seront jetes du serveur avec le message de l'option "nonSpoutCraftKickMessage".
 #
 # En mettant "alertNonSpoutCraftUser" sur "false", ils ne recevront pas le message de l'option
 # "nonSpoutCraftWarnMessage" (valeurs possibles : "true" / "false").
@@ -478,18 +477,18 @@ nonSpoutCraftWarnMessage: You would have a better experience on this server with
 #                                    -------------------
 # FR: Utilisation d'un pack de textures officiel (seulement pour les utilisateurs de SpoutCraft)
 #
-# En mettant "restrictTexturePack" sur "true", vous imposerez un pack de textures à vos joueurs.
-# Vous devrez indiquer son URL dans "texturePackURL" (fichier zip en téléchargement direct).
+# En mettant "restrictTexturePack" sur "true", vous imposerez un pack de textures a vos joueurs.
+# Vous devrez indiquer son URL dans "texturePackURL" (fichier zip en telechargement direct).
 #
-# Attention : Plus ce fichier est gros, plus ça prendra de temps pour qu'il soit disponible
-# pour vos utilisateurs (évidemment). Ils pourront jouer normalement en attendant.
+# Attention : Plus ce fichier est gros, plus ca prendra de temps pour qu'il soit disponible
+# pour vos utilisateurs (evidemment). Ils pourront jouer normalement en attendant.
 #
-# Quand le téléchargement commence, un popup (celle des succès) apparait.
-# Vous pouvez en modifier l'icône avec l'option "texturePackNotificationItem", les valeurs
+# Quand le telechargement commence, un popup (celle des succes) apparait.
+# Vous pouvez en modifier l'icone avec l'option "texturePackNotificationItem", les valeurs
 # que vous pouvez utiliser sont visibles sur cette page : http://bit.ly/AmJgMb
 #
 # Le titre ("texturePackNotificationTitle") et le message ("texturePackNotificationMessage")
-# peuvent également être personnalisés mais seront tronqués si vous dépassez 26 caractères.
+# peuvent egalement etre personnalises mais seront tronques si vous depassez 26 caracteres.
 
 restrictTexturePack: false
 texturePackURL: ''
@@ -524,27 +523,27 @@ texturePackNotificationMessage: Wait for the end of DL...
 # "posX" for horizontal position relative to the left border,
 # "posY" for vertical position relative to the top border.
 #                                    -------------------
-# FR: Réglages avancés
+# FR: Reglages avances
 #
 # maxAddTries / maxDelTries
-# Nombre d'essais pour ajouter/retirer une créature à/de la liste de celles gérées par ce plugin.
+# Nombre d'essais pour ajouter/retirer une creature a/de la liste de celles gerees par ce plugin.
 #
-# La section "interface" comporte les réglages pour l'interface visuelle affichée quand la tenue
-# de camouflage est utilisée. Il y a 3 groupes de réglages, "left" (gauche) et "right" (droit)
-# fonctionnent de la même façon : (attention aux espaces de début de ligne)
+# La section "interface" comporte les reglages pour l'interface visuelle affichee quand la tenue
+# de camouflage est utilisee. Il y a 3 groupes de reglages, "left" (gauche) et "right" (droit)
+# fonctionnent de la meme facon : (attention aux espaces de debut de ligne)
 #
 #  left/right:
 #    active:
-#      image: <url de l'image pour l'interface gauche/droite quand le mode camouflage est activé>
+#      image: <url de l'image pour l'interface gauche/droite quand le mode camouflage est active>
 #      width: <sa largeur>
 #      height: <sa hauteur>
 #    inactive:
-#      image: <url de l'image pour l'interface gauche/droite quand le mode camouflage n'est pas activé>
+#      image: <url de l'image pour l'interface gauche/droite quand le mode camouflage n'est pas active>
 #      width: <sa largeur>
 #      height: <sa hauteur>
 #
 # Les sections "item" et "counter" indiquent les positionnements de l'item servant de carburant
-# et son compteur. Chaque nombre correspond à un nombre de pixels :
+# et son compteur. Chaque nombre correspond a un nombre de pixels :
 # "size" pour la taille de l'item,
 # "posX" pour la position horizontale par rapport au bord gauche,
 # "posY" pour la position verticale par rapport au bord haut.
@@ -562,7 +561,7 @@ interface:
       image: https://github.com/arboriginal/Camouflage/raw/master/default_hud/hud-left-off.png
       width: 5
       height: 237
-      
+
   right:
     active:
       image: https://github.com/arboriginal/Camouflage/raw/master/default_hud/hud-right-on.png
@@ -572,12 +571,12 @@ interface:
       image: https://github.com/arboriginal/Camouflage/raw/master/default_hud/hud-right-off.png
       width: 5
       height: 237
-      
+
   item:
     size: 15
     posX: 7
     posY: 2
-    
+
   counter:
     posX: 25
     posY: 7
