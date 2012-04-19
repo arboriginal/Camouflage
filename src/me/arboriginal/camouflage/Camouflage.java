@@ -55,8 +55,10 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 import org.getspout.spoutapi.SpoutManager;
+import org.getspout.spoutapi.SpoutServer;
 import org.getspout.spoutapi.event.input.KeyBindingEvent;
 import org.getspout.spoutapi.event.spout.SpoutCraftEnableEvent;
 import org.getspout.spoutapi.event.spout.SpoutcraftFailedEvent;
@@ -70,9 +72,8 @@ import org.getspout.spoutapi.keyboard.BindingExecutionDelegate;
 import org.getspout.spoutapi.keyboard.Keyboard;
 import org.getspout.spoutapi.player.EntitySkinType;
 import org.getspout.spoutapi.player.SpoutPlayer;
-import org.getspout.spoutapi.plugin.SpoutPlugin;
 
-public class Camouflage extends SpoutPlugin implements Listener, BindingExecutionDelegate {
+public class Camouflage extends JavaPlugin implements Listener, BindingExecutionDelegate {
 	protected FileConfiguration	               config;
 	protected Map<String, String>	             blocksGroups;
 	protected Map<String, Integer>	           composedBlocksGroups;
@@ -82,6 +83,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 	protected Map<String, Boolean>	           camouflage_mode	 = new HashMap<String, Boolean>();
 	protected ArrayList<Integer>	             customMobs	       = new ArrayList<Integer>();
 	protected ArrayList<String>	               microTasks	       = new ArrayList<String>();
+	protected SpoutServer	                     spoutServer	     = new SpoutServer();
 	protected boolean	                         activated	       = false;
 	protected boolean	                         semaphore	       = false;
 	protected int	                             energy	           = 0;
@@ -544,7 +546,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 					ArrayList<?> playerList = (ArrayList<?>) camouflage_active.clone();
 
 					for (Object playerName : playerList) {
-						SpoutPlayer player = getSpoutServer().getPlayer((String) playerName);
+						Player player = getServer().getPlayer((String) playerName);
 
 						if (player != null) {
 							setPredatorEffect(player, true);
@@ -640,7 +642,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 
 	private void refreshHUD() {
 		for (String name : camouflage_mode.keySet()) {
-			SpoutPlayer player = getSpoutServer().getPlayer(name);
+			SpoutPlayer player = (SpoutPlayer) getServer().getPlayer(name);
 
 			player.getMainScreen().removeWidgets(this);
 			buildInterface(player);
@@ -854,8 +856,6 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 		}
 	}
 
-	// TODO---------------------------------------
-
 	private void setCustomPlayerSkin(SpoutPlayer player, boolean reset) {
 		String skinUrl;
 
@@ -886,7 +886,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 		switchHUDstate(player, reset);
 	}
 
-	private void setPredatorEffect(SpoutPlayer player, boolean activate) {
+	private void setPredatorEffect(Player player, boolean activate) {
 		if (predatorView > 0) {
 			if (activate) {
 				if (!camouflage_active.contains(player.getName())) {
@@ -900,8 +900,6 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 			}
 		}
 	}
-
-	// TODO---------------------------------------
 
 	private void switchHUDstate(SpoutPlayer player, boolean reset) {
 		for (Widget widget : player.getMainScreen().getAttachedWidgets()) {
@@ -935,7 +933,7 @@ public class Camouflage extends SpoutPlugin implements Listener, BindingExecutio
 			String customSkin = getEntitySkin(entity);
 
 			if (customSkin != null) {
-				getSpoutServer().setEntitySkin((LivingEntity) entity, customSkin, getEntitySkinType(entity));
+				spoutServer.setEntitySkin((LivingEntity) entity, customSkin, getEntitySkinType(entity));
 				return true;
 			}
 		}
